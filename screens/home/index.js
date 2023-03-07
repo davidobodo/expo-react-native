@@ -5,6 +5,10 @@ import { Banner, Filter, Cards } from "../../components/composites";
 export default function HomeScreen({ navigation }) {
 	const onSelectProduct = (id) => {
 		console.log(id);
+
+		navigation.navigate("ProductDetails", {
+			id,
+		});
 	};
 	return (
 		<View style={styles.container}>
