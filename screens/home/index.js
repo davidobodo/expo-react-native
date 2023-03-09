@@ -2,12 +2,11 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { Button } from "../../components/atoms";
 import { Banner, Filter, Cards } from "../../components/composites";
+import PRODUCTS from "../../data/products";
 export default function HomeScreen({ navigation }) {
-	const onSelectProduct = (id) => {
-		console.log(id);
-
+	const onSelectProduct = (data) => {
 		navigation.navigate("ProductDetails", {
-			id,
+			data,
 		});
 	};
 	return (
@@ -17,8 +16,9 @@ export default function HomeScreen({ navigation }) {
 			</View>
 			<Filter />
 
-			{[1, 2, 3, 4, 5, 6].map((item) => {
-				return <Cards.Product key={item} onPress={() => onSelectProduct(item)} />;
+			{PRODUCTS.map((item) => {
+				const { id, title, price, color } = item;
+				return <Cards.Product key={id} onPress={() => onSelectProduct(item)} title={title} price={price} color={color} />;
 			})}
 		</View>
 	);
