@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { Button } from "../../components/atoms";
 import { cartState } from "../../store";
 
-export default function ProductDetails({ route }) {
+export default function ProductDetails({ route, navigation }) {
 	const [cart, setCart] = useRecoilState(cartState);
 	const { data } = route.params;
 	const { id, title, color, price } = data;
@@ -36,6 +36,10 @@ export default function ProductDetails({ route }) {
 	const onClearCart = () => {
 		setCart([]);
 	};
+
+	const onGotoCart = () => {
+		navigation.navigate("Cart");
+	};
 	return (
 		<View>
 			<Text style={styles.title}>{title}</Text>
@@ -44,6 +48,7 @@ export default function ProductDetails({ route }) {
 
 			<Button text="Add to cart" onPress={onAddToCart} />
 			<Button text="Clear cart" onPress={onClearCart} />
+			<Button text="Go to cart" onPress={onGotoCart} />
 		</View>
 	);
 }
