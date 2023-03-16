@@ -12,10 +12,11 @@ const styles = StyleSheet.create({
 	button: {
 		backgroundColor: "black",
 		alignItems: "center",
-		padding: 15,
-		borderRadius: 20,
+		padding: 20,
+		borderRadius: 40,
 	},
 	buttonText: {
 		color: "#fff",
+		fontFamily: "Ubuntu-regular",
 	},
 });
