@@ -1,8 +1,9 @@
 type TProduct = {
 	title: string;
-	id: string;
+	id: number;
 	price: number;
 	color: string;
+	img?: string;
 };
 
 export type { TProduct };

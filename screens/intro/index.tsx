@@ -5,8 +5,7 @@ import { IMAGES } from "../../constants";
 export default function IntroScreen({ navigation }) {
 	return (
 		<View style={styles.container}>
-			{/* <StatusBar style="auto" /> */}
-
+			<StatusBar hidden={true} />
 			<ImagesSection />
 			<View style={styles.bottom}>
 				<Text style={styles.subtitle}>New fashion collection</Text>
