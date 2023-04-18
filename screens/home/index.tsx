@@ -13,6 +13,9 @@ export default function HomeScreen({ navigation }) {
 			data,
 		});
 	};
+	const onGoToCart = () => {
+		navigation.navigate("Cart");
+	};
 	return (
 		<SafeAreaView style={styles.container}>
 			<StatusBar hidden={false} style="dark" />
@@ -21,6 +24,7 @@ export default function HomeScreen({ navigation }) {
 			{/* ----------------- */}
 			<View style={styles.navContainer}>
 				<Text style={styles.navLabel}>Bungkusa</Text>
+				<Button text="Cart" onPress={onGoToCart}></Button>
 				<View>
 					<Ionicons name="notifications-outline" size={24} color="black" />
 				</View>
