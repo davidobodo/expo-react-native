@@ -1,45 +1,16 @@
 import { StatusBar } from "expo-status-bar";
 import { View, Text, StyleSheet, SafeAreaView, ImageBackground, Pressable } from "react-native";
-import { useRecoilState } from "recoil";
 import { Button } from "../../components/atoms";
 import { Rating } from "../../components/composites";
-import { cartState } from "../../store";
 import { styles } from "./styles";
 import { Feather, Ionicons, Octicons } from "@expo/vector-icons";
+import { useUpdateCart } from "../../hooks";
 
 export default function ProductDetails({ route, navigation }) {
-	const [cart, setCart] = useRecoilState(cartState);
 	const { data } = route.params;
 	const { id, title, color, price, description = "This is the description for this product", img } = data;
 
-	function onAddNewItem() {
-		const updatedCart = [...cart, { ...data, quantity: 1 }];
-		setCart(updatedCart);
-	}
-
-	const onAddToCart = () => {
-		//Item could possibly already exists
-		if (cart.length > 0) {
-			const productInCart = cart.find((item) => item.id === id);
-			if (productInCart) {
-				const clonedCart = JSON.parse(JSON.stringify(cart));
-				const position = cart.findIndex((item) => item.id === id);
-				productInCart.quantity++;
-				clonedCart.splice(position, 1, productInCart);
-				setCart(clonedCart);
-			} else {
-				//Add new item
-				onAddNewItem();
-			}
-		} else {
-			//Add new item
-			onAddNewItem();
-		}
-	};
-
-	const onClearCart = () => {
-		setCart([]);
-	};
+	const { onAddToCart } = useUpdateCart();
 
 	const onGotoCart = () => {
 		navigation.navigate("Intro");
@@ -79,7 +50,7 @@ export default function ProductDetails({ route, navigation }) {
 			<Text style={styles.description}>{description}</Text>
 
 			<View style={styles.cta}>
-				<Button text="Add to cart" onPress={onAddToCart} />
+				<Button text="Add to cart" onPress={() => onAddToCart(data)} />
 			</View>
 			{/* <Button text="Clear cart" onPress={onClearCart} />
 			<Button text="Go to cart" onPress={onGotoCart} /> */}

@@ -1,15 +1,30 @@
-import { View, Text, StyleSheet, SafeAreaView, FlatList, Pressable } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, FlatList, Pressable, ImageBackground } from "react-native";
 import { useRecoilState } from "recoil";
 import { Button } from "../../components/atoms";
 import { cartState } from "../../store";
 import { TCartItem } from "../../types/cart";
+import { styles, itemStyle } from "./styles";
 
-function Item({ title, price, quantity, color }: TCartItem) {
+function Item({ title, price, quantity, color, img, onIncrease, onDecrease, id }: TCartItem) {
+	console.log(img, "====TEH IMAGE");
 	return (
 		<View style={itemStyle.item}>
-			<Text>{title}</Text>
-			<Text>{price}</Text>
-			<Text>{quantity}</Text>
+			<View style={itemStyle.itemImageWrapper}>
+				<ImageBackground source={{ uri: img }} style={itemStyle.itemImage}></ImageBackground>
+			</View>
+			<View style={itemStyle.middle}>
+				<Text style={itemStyle.title}>{title}</Text>
+				<Text style={itemStyle.price}>{price}</Text>
+			</View>
+			<View>
+				<Pressable onPress={() => onDecrease(id)}>
+					<Text>-</Text>
+				</Pressable>
+				<Text>{quantity}</Text>
+				<Pressable onPress={() => onIncrease(id)}>
+					<Text>+</Text>
+				</Pressable>
+			</View>
 		</View>
 	);
 }
@@ -20,14 +35,29 @@ export default function Cart({ route, navigation }) {
 	const onGoHome = () => {
 		navigation.navigate("Home");
 	};
+
+	console.log(cart, "THE CART");
+	const onIncrease = (id: string) => {};
+	const onDecrease = (id: string) => {};
 	return (
 		<View>
 			<SafeAreaView>
 				<FlatList
 					data={cart}
 					renderItem={({ item }) => {
-						const { title, price, quantity, color, id } = item;
-						return <Item title={title} price={price} quantity={quantity} color={color} id={id} />;
+						const { title, price, quantity, color, id, img } = item;
+						return (
+							<Item
+								title={title}
+								price={price}
+								quantity={quantity}
+								color={color}
+								id={id}
+								img={img}
+								onIncrease={onIncrease}
+								onDecrease={onDecrease}
+							/>
+						);
 					}}
 					keyExtractor={(item) => item.id}
 				/>
@@ -36,27 +66,3 @@ export default function Cart({ route, navigation }) {
 		</View>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {},
-	title: {
-		fontSize: 24,
-	},
-	image: {
-		height: 200,
-	},
-	price: {
-		marginBottom: 4,
-		fontSize: 20,
-	},
-});
-
-const itemStyle = StyleSheet.create({
-	item: {
-		backgroundColor: "#cbf5dd",
-		padding: 2,
-		borderRadius: 10,
-		height: 200,
-		marginBottom: 20,
-	},
-});
