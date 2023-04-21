@@ -1,11 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, SafeAreaView, TextInput, Pressable, FlatList, ImageBackground } from "react-native";
 import { Button } from "../../components/atoms";
-import { Filter, Cards } from "../../components/composites";
-import { Feather, Ionicons } from "@expo/vector-icons";
+import { Filter, Cards, CartCount } from "../../components/composites";
+import { Feather, Ionicons, AntDesign } from "@expo/vector-icons";
 import PRODUCTS from "../../data/products";
 import { IMAGES } from "../../constants";
 import { styles } from "./styles";
+import { useCartCount } from "../../hooks";
 
 export default function HomeScreen({ navigation }) {
 	const onSelectProduct = (data) => {
@@ -16,6 +17,8 @@ export default function HomeScreen({ navigation }) {
 	const onGoToCart = () => {
 		navigation.navigate("Cart");
 	};
+
+	const { cartCount } = useCartCount();
 	return (
 		<SafeAreaView style={styles.container}>
 			<StatusBar hidden={false} style="dark" />
@@ -24,8 +27,12 @@ export default function HomeScreen({ navigation }) {
 			{/* ----------------- */}
 			<View style={styles.navContainer}>
 				<Text style={styles.navLabel}>Bungkusa</Text>
-				<Button text="Cart" onPress={onGoToCart}></Button>
-				<View>
+				<View
+					style={{
+						flexDirection: "row",
+					}}
+				>
+					<CartCount count={cartCount} />
 					<Ionicons name="notifications-outline" size={24} color="black" />
 				</View>
 			</View>

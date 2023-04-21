@@ -1,10 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import { View, Text, StyleSheet, SafeAreaView, ImageBackground, Pressable } from "react-native";
 import { Button } from "../../components/atoms";
-import { Rating } from "../../components/composites";
+import { CartCount, Rating } from "../../components/composites";
 import { styles } from "./styles";
 import { Feather, Ionicons, Octicons } from "@expo/vector-icons";
-import { useUpdateCart } from "../../hooks";
+import { useCartCount, useUpdateCart } from "../../hooks";
 
 export default function ProductDetails({ route, navigation }) {
 	const { data } = route.params;
@@ -19,6 +19,8 @@ export default function ProductDetails({ route, navigation }) {
 	const onGoBack = () => {
 		navigation.goBack();
 	};
+
+	const { cartCount } = useCartCount();
 	return (
 		<View style={styles.container}>
 			<StatusBar hidden={false} />
@@ -30,6 +32,8 @@ export default function ProductDetails({ route, navigation }) {
 						<Ionicons name="chevron-back-sharp" size={24} color="black" />
 					</Pressable>
 					<Text style={styles.headerTitle}>Order Details</Text>
+
+					<CartCount count={cartCount} />
 					<Pressable>
 						<Octicons name="kebab-horizontal" size={24} color="black" />
 					</Pressable>

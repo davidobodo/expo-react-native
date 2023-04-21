@@ -1,3 +1,3 @@
 import useUpdateCart from "./useUpdateCart";
-
-export { useUpdateCart };
+import useCartCount from "./useCartCount";
+export { useUpdateCart, useCartCount };
