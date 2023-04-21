@@ -22,6 +22,7 @@ const itemStyle = StyleSheet.create({
 		marginBottom: 20,
 		flexDirection: "row",
 		padding: 2,
+		paddingRight: 20,
 	},
 	itemImageWrapper: {
 		width: 100,
@@ -40,6 +41,17 @@ const itemStyle = StyleSheet.create({
 	itemImage: {
 		width: "100%",
 		height: "100%",
+	},
+	cta: {
+		width: 24,
+		height: 24,
+		borderRadius: 30,
+		backgroundColor: "black",
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	ctaText: {
+		color: "#fff",
 	},
 });
 

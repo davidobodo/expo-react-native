@@ -16,13 +16,19 @@ function Item({ title, price, quantity, color, img, onIncrease, onDecrease, id }
 				<Text style={itemStyle.title}>{title}</Text>
 				<Text style={itemStyle.price}>{price}</Text>
 			</View>
-			<View>
-				<Pressable onPress={() => onDecrease(id)}>
-					<Text>-</Text>
+			<View
+				style={{
+					alignItems: "center",
+					justifyContent: "center",
+					gap: 4,
+				}}
+			>
+				<Pressable onPress={() => onDecrease(id)} style={itemStyle.cta}>
+					<Text style={itemStyle.ctaText}>-</Text>
 				</Pressable>
 				<Text>{quantity}</Text>
-				<Pressable onPress={() => onIncrease(id)}>
-					<Text>+</Text>
+				<Pressable onPress={() => onIncrease(id)} style={itemStyle.cta}>
+					<Text style={itemStyle.ctaText}>+</Text>
 				</Pressable>
 			</View>
 		</View>
